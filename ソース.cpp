@@ -1,62 +1,61 @@
 
 #include "DxLib.h"
 
-#define GAME_WIDTH			960	//ç”»é¢ã®æ¨ªã®å¤§ãã•
-#define GAME_HEIGHT			640	//ç”»é¢ã®ç¸¦ã®å¤§ãã•
-#define GAME_COLOR			32	//ç”»é¢ã®ã‚«ãƒ©ãƒ¼ãƒ“ãƒƒãƒˆ
+#define GAME_WIDTH			960	//‰æ–Ê‚Ì‰¡‚Ì‘å‚«‚³
+#define GAME_HEIGHT			640	//‰æ–Ê‚Ìc‚Ì‘å‚«‚³
+#define GAME_COLOR			32	//‰æ–Ê‚ÌƒJƒ‰[ƒrƒbƒg
 
-#define GAME_WINDOW_BAR		0	//ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã«ã™ã‚‹
-#define GAME_WINDOW_NAME	"Dxlib_Movie"	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«
+#define GAME_WINDOW_BAR		0	//ƒ^ƒCƒgƒ‹ƒo[‚ÍƒfƒtƒHƒ‹ƒg‚É‚·‚é
+#define GAME_WINDOW_NAME	"Dxlib_Movie"	//ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹
 
 
 
-#define MOVIE_PATH			".\\MOVIE\\Bloodborne.mp4"	//å‹•ç”»ã®ãƒ‘ã‚¹
+#define MOVIE_PATH			".\\MOVIE\\Bloodborne.mp4"	//“®‰æ‚ÌƒpƒX
 
-int handle = -1;	//å‹•ç”»ã®ãƒãƒ³ãƒ‰ãƒ«
+int handle = -1;	//“®‰æ‚Ìƒnƒ“ƒhƒ‹
 
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	SetOutApplicationLogValidFlag(FALSE);				//log.txtã‚’å‡ºåŠ›ã—ãªã„
-	ChangeWindowMode(TRUE);								//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã«è¨­å®š
-	SetGraphMode(GAME_WIDTH, GAME_HEIGHT, GAME_COLOR);	//æŒ‡å®šã®æ•°å€¤ã§ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºã™ã‚‹
-	SetWindowStyleMode(GAME_WINDOW_BAR);				//ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒ¼ã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã«ã™ã‚‹
-	SetMainWindowText(TEXT(GAME_WINDOW_NAME));			//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«ã®æ–‡å­—
-	SetAlwaysRunFlag(TRUE);								//éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã§ã‚‚å®Ÿè¡Œã™ã‚‹
+	SetOutApplicationLogValidFlag(FALSE);				//log.txt‚ğo—Í‚µ‚È‚¢
+	ChangeWindowMode(TRUE);								//ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Éİ’è
+	SetGraphMode(GAME_WIDTH, GAME_HEIGHT, GAME_COLOR);	//w’è‚Ì”’l‚ÅƒEƒBƒ“ƒhƒE‚ğ•\¦‚·‚é
+	SetWindowStyleMode(GAME_WINDOW_BAR);				//ƒ^ƒCƒgƒ‹ƒo[‚ÍƒfƒtƒHƒ‹ƒg‚É‚·‚é
+	SetMainWindowText(TEXT(GAME_WINDOW_NAME));			//ƒEƒBƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹‚Ì•¶š
+	SetAlwaysRunFlag(TRUE);								//”ñƒAƒNƒeƒBƒu‚Å‚àÀs‚·‚é
 
-	if (DxLib_Init() == -1) { return -1; }	//ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªåˆæœŸåŒ–å‡¦ç†
+	if (DxLib_Init() == -1) { return -1; }	//‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
 
-	//å‹•ç”»ã®èª­ã¿è¾¼ã¿
+	//“®‰æ‚Ì“Ç‚İ‚İ
 	handle = LoadGraph(MOVIE_PATH);
 
-	//ç„¡é™ãƒ«ãƒ¼ãƒ—
+	//–³ŒÀƒ‹[ƒv
 	while (TRUE)
 	{
-		if (ProcessMessage() != 0) { break; }	//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†ã®çµæœãŒã‚¨ãƒ©ãƒ¼ã®ã¨ãã€å¼·åˆ¶çµ‚äº†
-		if (ClearDrawScreen() != 0) { break; }	//ç”»é¢ã‚’æ¶ˆå»ã§ããªã‹ã£ãŸã¨ãã€å¼·åˆ¶çµ‚äº†
+		if (ProcessMessage() != 0) { break; }	//ƒƒbƒZ[ƒWˆ—‚ÌŒ‹‰Ê‚ªƒGƒ‰[‚Ì‚Æ‚«A‹­§I—¹
+		if (ClearDrawScreen() != 0) { break; }	//‰æ–Ê‚ğÁ‹‚Å‚«‚È‚©‚Á‚½‚Æ‚«A‹­§I—¹
 
 
 		if (GetMovieStateToGraph(handle) == 0)
 		{
-			SeekMovieToGraph(handle, 0);	//å‹•ç”»ã®å†ç”Ÿãƒãƒ¼ã‚’æœ€åˆã‹ã‚‰ã«ã™ã‚‹
-			PlayMovieToGraph(handle);		//å‹•ç”»ã‚’å†ç”ŸçŠ¶æ…‹ã«ã™ã‚‹
+			SeekMovieToGraph(handle, 0);	//“®‰æ‚ÌÄ¶ƒo[‚ğÅ‰‚©‚ç‚É‚·‚é
+			PlayMovieToGraph(handle);		//“®‰æ‚ğÄ¶ó‘Ô‚É‚·‚é
 		}
 
-		////ã‚¿ã‚¤ãƒˆãƒ«å‹•ç”»æç”»
+		////ƒ^ƒCƒgƒ‹“®‰æ•`‰æ
 		//DrawGraph(0, 0, handle, FALSE);
 
 		DrawExtendGraph(0, 0, GAME_WIDTH, GAME_HEIGHT, handle, false);
-		DrawExtendGraph(0, 20, "Bloodborne", GAME_HEIGHT, handle, false);
 	
-		DrawString(0, 0, "å‹•ç”»ã‚’å†ç”Ÿã—ã¦ã„ã¾ã™ãƒ»ãƒ»ãƒ»", GetColor(255, 255, 255));
-		DrawString(0, 20, "Bloodborne",  GetColor(255, 255, 255));//å‹•ç”»ã®èª¬æ˜
-		ScreenFlip();		//ãƒ¢ãƒ‹ã‚¿ã®ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ¬ãƒ¼ãƒˆã®é€Ÿã•ã§è£ç”»é¢ã‚’å†æç”»
+		DrawString(0, 0, "“®‰æ‚ğÄ¶‚µ‚Ä‚¢‚Ü‚·EEE", GetColor(255, 255, 255));
+		DrawString(0, 20, "Bloodborne",  GetColor(255, 255, 255));//“®‰æ‚Ìà–¾
+		ScreenFlip();		//ƒ‚ƒjƒ^‚ÌƒŠƒtƒŒƒbƒVƒ…ƒŒ[ƒg‚Ì‘¬‚³‚Å— ‰æ–Ê‚ğÄ•`‰æ
 	}
 
-	DxLib_End();	//ï¼¤ï¼¸ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä½¿ç”¨ã®çµ‚äº†å‡¦ç†
+	DxLib_End();	//‚c‚wƒ‰ƒCƒuƒ‰ƒŠg—p‚ÌI—¹ˆ—
 
-	DeleteGraph(handle);	//å‹•ç”»ã®å‰Šé™¤
+	DeleteGraph(handle);	//“®‰æ‚Ìíœ
 
 
 	return 0;
